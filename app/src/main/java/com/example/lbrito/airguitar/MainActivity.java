@@ -55,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void fcnStart(View view){
             Intent intentMain = new Intent(MainActivity.this ,
                     GuitarActivity.class);
             MainActivity.this.startActivity(intentMain);
-            Log.i("Content "," Main layout ");
+            Log.i("Content "," Guitar layout ");
     }
 }

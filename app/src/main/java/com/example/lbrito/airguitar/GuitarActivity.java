@@ -1,10 +1,12 @@
 package com.example.lbrito.airguitar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ public class GuitarActivity extends AppCompatActivity {
     // Ref: https://www.androidtutorialpoint.com/basics/android-seekbar-tutorial/
     private SeekBar E_cord;
     private TextView ProgressTextView;
+    private TextView tvNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class GuitarActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         E_cord=(SeekBar) findViewById(R.id.e_cord);
         ProgressTextView=(TextView) findViewById(R.id.progresstextview);
+        tvNote=(TextView) findViewById(R.id.textView2);
         E_cord.setMax(150);
         E_cord.setProgress(20);
 
@@ -34,16 +38,27 @@ public class GuitarActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { //This notifies that the progress level has changed on the seekbar. The parameter fromUser distinguishes user-initiated from programatic changes
                 progressChangedValue = progress;
+
+                //?????????????????????  WORKING ON THIS
+                // It generates the app to stop
+
+                ///write_note(progress);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
+
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) { // This is a notification that the user has finished the touch gesture
                 ProgressTextView.setText("Your current progress is "+progressChangedValue);
+
+
                 Toast.makeText(GuitarActivity.this, "Seek bar progress is :" + progressChangedValue,
                         Toast.LENGTH_SHORT).show();
+
+
+
             }
 
         });
@@ -78,5 +93,18 @@ public class GuitarActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void GoHome(View view){
+        Intent intentMain = new Intent(GuitarActivity.this ,
+                MainActivity.class);
+        GuitarActivity.this.startActivity(intentMain);
+        Log.i("Content "," Main layout ");
+    }
+
+    private void write_note(int progress){
+        if (progress>=100){
+            tvNote.setText(progress);
+        }
     }
 }
