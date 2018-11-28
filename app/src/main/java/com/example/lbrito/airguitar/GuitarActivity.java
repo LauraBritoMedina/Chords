@@ -38,6 +38,7 @@ public class GuitarActivity extends AppCompatActivity {
         e_cord.setProgress(20);
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.g5340100111100001);
+        final MediaPlayer s1f1 = MediaPlayer.create(this, R.raw.g5341101111100002);
 
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -76,13 +77,18 @@ public class GuitarActivity extends AppCompatActivity {
                 if(!e_cord.isPressed()){
                     mp.start();
 
-                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.release();
-                        }
-                    });
+                } else if (e_cord.getProgress()>=100){
+                    s1f1.start();
                 }
+
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    }
+                });
+
+
             }
         });
 
