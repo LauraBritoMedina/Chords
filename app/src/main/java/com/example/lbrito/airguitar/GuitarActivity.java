@@ -2,6 +2,7 @@ package com.example.lbrito.airguitar;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,13 +12,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class GuitarActivity extends AppCompatActivity {
     // Ref: https://www.androidtutorialpoint.com/basics/android-seekbar-tutorial/
-    private SeekBar E_cord;
+    private SeekBar e_cord;
+    private Button String1;
     private TextView ProgressTextView;
     private TextView tvNote;
 
@@ -27,15 +30,19 @@ public class GuitarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guitar);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        E_cord=findViewById(R.id.e_cord);
+        e_cord=findViewById(R.id.e_cord);
+        String1=findViewById(R.id.String1);
         ProgressTextView= findViewById(R.id.progresstextview);
         tvNote= findViewById(R.id.textView2);
-        E_cord.setMax(150);
-        E_cord.setProgress(20);
+        e_cord.setMax(150);
+        e_cord.setProgress(20);
+
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.g5340100111100001);
+
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         //Perform SeekBar (E_cord) change listener event used for getting the progress value i.e. Notify the client that the progress level has been updated on the seekbar
-        E_cord.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){ // Notify the user changes/actions in the seekBar
+        e_cord.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){ // Notify the user changes/actions in the seekBar
             int progressChangedValue = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { //This notifies that the progress level has changed on the seekbar. The parameter fromUser distinguishes user-initiated from programatic changes
@@ -43,6 +50,10 @@ public class GuitarActivity extends AppCompatActivity {
                     Log.d("DEBUG", "Progress is: "+progress);
                     //set textView's text
                     ProgressTextView.setText("Your current progress is " + progress);
+
+                    if (progress >= 100){
+
+                    }
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -57,6 +68,22 @@ public class GuitarActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
             }
 
+        });
+
+        String1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!e_cord.isPressed()){
+                    mp.start();
+
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+                        }
+                    });
+                }
+            }
         });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
