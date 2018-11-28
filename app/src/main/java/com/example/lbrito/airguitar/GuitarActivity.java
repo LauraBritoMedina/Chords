@@ -1,6 +1,7 @@
 package com.example.lbrito.airguitar;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,41 +25,36 @@ public class GuitarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guitar);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        E_cord=(SeekBar) findViewById(R.id.e_cord);
-        ProgressTextView=(TextView) findViewById(R.id.progresstextview);
-        tvNote=(TextView) findViewById(R.id.textView2);
+        E_cord=findViewById(R.id.e_cord);
+        ProgressTextView= findViewById(R.id.progresstextview);
+        tvNote= findViewById(R.id.textView2);
         E_cord.setMax(150);
         E_cord.setProgress(20);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         //Perform SeekBar (E_cord) change listener event used for getting the progress value i.e. Notify the client that the progress level has been updated on the seekbar
         E_cord.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){ // Notify the user changes/actions in the seekBar
             int progressChangedValue = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { //This notifies that the progress level has changed on the seekbar. The parameter fromUser distinguishes user-initiated from programatic changes
-                progressChangedValue = progress;
-
-                //?????????????????????  WORKING ON THIS
-                // It generates the app to stop
-
-                ///write_note(progress);
+                    // Log the progress
+                    Log.d("DEBUG", "Progress is: "+progress);
+                    //set textView's text
+                    ProgressTextView.setText("Your current progress is " + progress);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
-
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) { // This is a notification that the user has finished the touch gesture
-                ProgressTextView.setText("Your current progress is "+progressChangedValue);
+               /* ProgressTextView.setText("Your current progress is "+progressChangedValue);
 
 
                 Toast.makeText(GuitarActivity.this, "Seek bar progress is :" + progressChangedValue,
-                        Toast.LENGTH_SHORT).show();
-
-
-
+                        Toast.LENGTH_SHORT).show();*/
             }
 
         });

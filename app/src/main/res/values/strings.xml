@@ -2,5 +2,6 @@
     <string name="app_name">AirGuitar</string>
     <string name="action_settings">Settings</string>
     <string name="Button_Start">Play</string>
+    <string name="String_e">-e-</string>
     <string name="title_activity_guitar">GuitarActivity</string>
 </resources>
