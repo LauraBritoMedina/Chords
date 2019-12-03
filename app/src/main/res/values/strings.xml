@@ -4,4 +4,7 @@
     <string name="Button_Start">Play</string>
     <string name="String_e">-e-</string>
     <string name="title_activity_guitar">GuitarActivity</string>
+    <string name="String1">E-string</string>
+    <string name="Estring">E-string</string>
+    <string name="textview">TextView</string>
 </resources>

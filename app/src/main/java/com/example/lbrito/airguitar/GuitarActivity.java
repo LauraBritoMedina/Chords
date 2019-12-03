@@ -37,8 +37,8 @@ public class GuitarActivity extends AppCompatActivity {
         e_cord.setMax(150);
         e_cord.setProgress(20);
 
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.g5340100111100001);
-        final MediaPlayer s1f1 = MediaPlayer.create(this, R.raw.g5341101111100002);
+        final MediaPlayer E_cord_mp = MediaPlayer.create(this, R.raw.e40hz);
+        final MediaPlayer F_cord_mp = MediaPlayer.create(this, R.raw.f43hz);
 
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -48,13 +48,10 @@ public class GuitarActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) { //This notifies that the progress level has changed on the seekbar. The parameter fromUser distinguishes user-initiated from programatic changes
                     // Log the progress
-                    Log.d("DEBUG", "Progress is: "+progress);
+                    Log.d("DEBUG", "Progress is: " + progress);
                     //set textView's text
                     ProgressTextView.setText("Your current progress is " + progress);
 
-                    if (progress >= 100){
-
-                    }
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -75,16 +72,23 @@ public class GuitarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!e_cord.isPressed()){
-                    mp.start();
+                    E_cord_mp.start();
 
                 } else if (e_cord.getProgress()>=100){
-                    s1f1.start();
+                    F_cord_mp.start();
                 }
 
-                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                E_cord_mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
+                    public void onCompletion(MediaPlayer E_cord_mp) {
+                        E_cord_mp.release();
+                    }
+                });
+
+                F_cord_mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer F_cord_mp) {
+                        F_cord_mp.release();
                     }
                 });
 
